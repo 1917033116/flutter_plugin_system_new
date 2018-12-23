@@ -3,7 +3,9 @@ package com.plugin.flutterpluginsystem;
 import android.annotation.TargetApi;
 import android.app.Activity;
 import android.app.ActivityManager;
+import android.content.ComponentName;
 import android.content.Context;
+import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Build;
@@ -84,11 +86,11 @@ public class FlutterPluginSystemPlugin implements MethodCallHandler {
     }
 
     private void lunchWebView(List<String> arguments) {
-        Toast.makeText(mActivity, "${arguments[0]}----${arguments[1]}", Toast.LENGTH_SHORT).show();
-//        val intent=Intent()
-//        intent.component=ComponentName(mActivity,arguments[1])
-//        intent.putExtra("extra_url",arguments[0])
-//        mActivity.startActivity(intent)
+//        Toast.makeText(mActivity, "${arguments[0]}----${arguments[1]}", Toast.LENGTH_SHORT).show();
+        Intent intent=new Intent();
+        intent.setComponent(new ComponentName(mActivity,arguments.get(1)));
+        intent.putExtra("extra_url",arguments.get(0));
+        mActivity.startActivity(intent);
     }
 
     @TargetApi(Build.VERSION_CODES.CUPCAKE)

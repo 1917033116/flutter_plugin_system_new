@@ -18,3 +18,4 @@
         String pakageName= await FlutterPluginSystem.getAppPakageName();
         //清除缓存
         bool isClear = await FlutterPluginSystem.clearCache();
+        
