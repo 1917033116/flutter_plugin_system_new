@@ -14,11 +14,13 @@ class MyApp extends StatefulWidget {
 class _MyAppState extends State<MyApp> {
   String _platformVersion = 'Unknown';
   String mcacheSize="";
+  bool isHaveNetWork=false;
   @override
   void initState() {
     super.initState();
     initPlatformState();
     getCacheSize();
+    getNetWorkStatues();
   }
 
   // Platform messages are asynchronous, so we initialize in an async method.
@@ -49,7 +51,7 @@ class _MyAppState extends State<MyApp> {
           title: const Text('Plugin example app'),
         ),
         body: Center(
-          child: Text('Running on: $_platformVersion\n$mcacheSize'),
+          child: Text('Running on: $_platformVersion\n$mcacheSize\n$isHaveNetWork'),
         ),
       ),
     );
@@ -59,6 +61,13 @@ class _MyAppState extends State<MyApp> {
     String cacheSize = await FlutterPluginSystem.getCacheSize();
     setState(() {
       mcacheSize=cacheSize;
+    });
+  }
+
+  void getNetWorkStatues() async{
+    bool isHave=await FlutterPluginSystem.isHaveNetWork();
+    setState(() {
+      isHaveNetWork=isHave;
     });
   }
 }

@@ -74,22 +74,26 @@ public class FlutterPluginSystemPlugin implements MethodCallHandler {
     }
 
     private void isHaveNetWork(MethodChannel.Result result) {
-        boolean isHaveNetWork = false;
+        boolean isHaveNetWork;
         ConnectivityManager manager = (ConnectivityManager) mActivity.getApplication().getSystemService(Context.CONNECTIVITY_SERVICE);
         if (manager == null) {
             isHaveNetWork = false;
         } else {
             NetworkInfo info = manager.getActiveNetworkInfo();
-            isHaveNetWork = !(info == null || info.isAvailable());
+            if (info == null || !info.isAvailable()) {
+                isHaveNetWork = false;
+            } else {
+                isHaveNetWork = true;
+            }
         }
         result.success(isHaveNetWork);
     }
 
     private void lunchWebView(List<String> arguments) {
 //        Toast.makeText(mActivity, "${arguments[0]}----${arguments[1]}", Toast.LENGTH_SHORT).show();
-        Intent intent=new Intent();
-        intent.setComponent(new ComponentName(mActivity,arguments.get(1)));
-        intent.putExtra("extra_url",arguments.get(0));
+        Intent intent = new Intent();
+        intent.setComponent(new ComponentName(mActivity, arguments.get(1)));
+        intent.putExtra("extra_url", arguments.get(0));
         mActivity.startActivity(intent);
     }
 
